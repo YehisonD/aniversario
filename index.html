@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversario ❤️</title>
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Canvas para la nieve (se inicializa con JS) -->
+    <canvas id="snow-canvas"></canvas>
+
+    <!-- PANTALLA DE CARGA -->
+    <div id="loading-screen">
+        <div class="loader-heart">❤️</div>
+        <div class="loader-text">
+            Preparando algo especial...<br>
+            ¡Feliz Aniversario, mi amor!<br>
+            Con todo mi cariño,<br>
+            <span id="tu-nombre"><!-- Cambia esto por tu nombre -->Tu novio</span>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL (oculto inicialmente) -->
+    <main id="main-content" class="hidden">
+
+        <!-- ENCABEZADO -->
+        <header>
+            <h1>Feliz Aniversario 💕</h1>
+            <div class="days-counter">
+                <span id="counter-text">Cargando...</span>
+            </div>
+            <p class="subtitle">Desde el 8 de mayo de 2025</p>
+        </header>
+
+        <!-- GALERÍA DE FOTOS -->
+        <section class="section">
+            <h2>Nuestros Momentos</h2>
+            <div class="gallery" id="gallery">
+                <!-- Añade aquí tus fotos. Cambia el src por la ruta correcta -->
+                <div class="gallery-item">
+                    <img src="img/foto1.jpeg" alt="Momento 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="img/foto3.jpeg" alt="Momento 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="img/foto2.jpeg" alt="Momento 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="img/foto7.jpeg" alt="Momento 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="img/foto4.jpeg" alt="Momento 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="img/foto6.jpeg" alt="Momento 6">
+                </div>
+            </div>
+        </section>
+
+        <!-- LIGHTBOX DE GALERÍA -->
+        <div class="lightbox" id="lightbox">
+            <span class="close-lightbox">&times;</span>
+            <img src="" alt="Foto ampliada" id="lightbox-img">
+        </div>
+
+        <!-- SPOTIFY -->
+        <section class="section spotify-section">
+            <h2>Nuestra Playlist</h2>
+            <!-- ⚠️ REEMPLAZA LA URL CON EL ENLACE DE TU PLAYLIST DE SPOTIFY -->
+            <a href="https://open.spotify.com/playlist/2UbHBAHh0IAMtlYSVii525?si=G8q5yg8iSlGz-0yiYq2jHA&pt=6c3838a7ae533d14344b2aa578cab497" target="_blank" class="spotify-btn">
+                <svg class="spotify-svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                </svg>
+                Escuchar en Spotify
+            </a>
+            <p class="spotify-description">Las canciones que nos recuerdan</p>
+        </section>
+
+        <!-- CARTA ANIMADA -->
+        <section class="section">
+            <h2>Una carta para ti</h2>
+            <div class="letter-wrapper" id="letter-wrapper">
+                <div class="envelope" id="envelope" role="button" aria-label="Abrir carta">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body">
+                        <div class="heart-seal">❤️</div>
+                    </div>
+                    <div class="letter-content" id="letter-paper">
+                        <!-- ⚠️ PUEDES CAMBIAR TODO EL CONTENIDO DE LA CARTA -->
+                        <p class="letter-title">💌 Wendi,</p>
+                        <p>
+                            Eres la melodía más bonita de mi vida. Cada día a tu lado es un regalo que atesoro con todo mi corazón. Gracias por ser mi compañera, mi cómplice, mi todo. Honro el instante en que unimos nuestros caminos.
+                        </p>
+                        <p class="letter-signature">Te amo infinitamente.<br>— Tu novio</p>
+                    </div>
+                </div>
+                <div class="hearts-container" id="hearts-container"></div>
+            </div>
+        </section>
+
+        <!-- MINIJUEGO -->
+        <section class="section quiz-section">
+            <h2>¿Qué tanto me conoces? 💭</h2>
+            <div class="quiz-rules">
+                <p>📋 <strong>Reglas:</strong> Responde las 6 primeras preguntas con sinceridad, todas las respuestas las debes escribir en minisculas mi amor, nada de mayusculas. La última es libre, solo para que me cuentes algo bonito. Al final verás tu puntuación.</p>
+            </div>
+            <div class="quiz-container">
+                <form id="quiz-form">
+                    <div class="question">
+                        <label>1. ¿Cómo se llama nuestra hija?</label>
+                        <input type="text" id="q1" placeholder="Nombre" required>
+                    </div>
+                    <div class="question">
+                        <label>2. Primera película que vimos juntos:</label>
+                        <input type="text" id="q2" placeholder="Ej: Una de la trilogia distopica" required>
+                    </div>
+                    <div class="question">
+                        <label>3. ¿Cuál fue nuestra primera salida?</label>
+                        <input type="text" id="q3" placeholder="Ej: Un lugar al que hemos ido varias veces" required>
+                    </div>
+                    <div class="question">
+                        <label>4. ¿Cuál es mi color favorito?</label>
+                        <select id="q4" required>
+                            <option value="">--Elige--</option>
+                            <option value="rojo">Rojo</option>
+                            <option value="azul">Azul</option>
+                            <option value="verde">Verde</option>
+                            <option value="turquesa">Turquesa</option>
+                            <option value="negro">Negro</option>
+                            <option value="blanco">Blanco</option>
+                        </select>
+                    </div>
+                    <div class="question">
+                        <label>5. ¿Dónde fue nuestro primer beso?</label>
+                        <input type="text" id="q5" placeholder="Ej: Es un lugar que tu conoces muy bien" required>
+                    </div>
+                    <div class="question">
+                        <label>6. Fecha en que nos hicimos novios:</label>
+                        <!-- Con type="date" se mostrará un selector de calendario -->
+                        <input type="date" id="q6" required>
+                    </div>
+                    <div class="question">
+                        <label>7. ¿Cómo te enamoraste de mí? (respuesta libre)</label>
+                        <textarea id="q7" rows="3" placeholder="Escribe lo que quieras..."></textarea>
+                    </div>
+                    <button type="submit" class="quiz-btn">Ver mi puntuación 💘</button>
+                </form>
+                <div class="result" id="quiz-result"></div>
+            </div>
+        </section>
+
+        <footer>
+            Hecho con ❤️ por tu novio programador
+        </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
