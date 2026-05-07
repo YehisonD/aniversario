@@ -255,11 +255,10 @@ h2 {
     transform: translateY(-3px);
 }
 
-/* SVG del logo de Spotify */
 .spotify-svg {
     width: 24px;
     height: 24px;
-    flex-shrink: 0;       /* Evita que se deforme */
+    flex-shrink: 0;
     transition: fill 0.3s;
 }
 
@@ -278,7 +277,7 @@ h2 {
     justify-content: center;
     position: relative;
     margin: 2rem 0;
-    min-height: 450px;        /* Altura suficiente para que la carta no invada otras secciones */
+    min-height: 450px;
     padding-bottom: 2rem;
 }
 
@@ -326,7 +325,6 @@ h2 {
     text-shadow: 0 0 15px var(--light-blue);
 }
 
-/* Contenido de la carta */
 .letter-content {
     position: absolute;
     bottom: 10px;
@@ -344,7 +342,7 @@ h2 {
     transform: translateY(0);
     opacity: 0;
     transition: transform 0.8s ease, opacity 0.5s ease;
-    max-height: 350px;        /* Scroll si el texto es muy largo */
+    max-height: 350px;
     overflow-y: auto;
 }
 
@@ -370,7 +368,6 @@ h2 {
     font-weight: bold;
 }
 
-/* Corazones flotantes */
 .hearts-container {
     position: absolute;
     top: 0;
@@ -496,6 +493,254 @@ footer {
     text-shadow: 0 0 10px rgba(0,191,255,0.4);
 }
 
+/* ========== NUEVAS SECCIONES ========== */
+
+/* ---------- SISTEMA SOLAR ---------- */
+.solar-system-section {
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.solar-instruction {
+    color: #aaa;
+    margin-bottom: 1rem;
+}
+
+.solar-system {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    animation: rotate-universe 40s linear infinite;
+}
+
+@keyframes rotate-universe {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    z-index: 2;
+    cursor: default;
+    text-shadow: 0 0 20px var(--light-blue);
+}
+
+/* órbitas invisibles, solo decorativas */
+.orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.planet {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: #1a1a2e;
+    border: 2px solid var(--light-blue);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    z-index: 3;
+    box-shadow: 0 0 15px rgba(0,191,255,0.3);
+}
+
+.planet:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px var(--light-blue);
+}
+
+.planet span {
+    display: block;
+    transform: rotate(0deg); /* se mantiene fijo contrarrestado con JS? Lo haremos en JS */
+    pointer-events: none;
+}
+
+/* Modal de planeta */
+.planet-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 9000;
+    justify-content: center;
+    align-items: center;
+}
+.planet-modal.active {
+    display: flex;
+}
+.planet-modal-content {
+    background: #1a1a1a;
+    border: 1px solid var(--light-blue);
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+}
+.planet-modal-content img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+.planet-modal-content h3 {
+    color: var(--light-blue);
+    font-family: var(--font-script);
+    font-size: 2rem;
+}
+.planet-modal-content p {
+    color: #ccc;
+    margin: 0.5rem 0;
+}
+.planet-modal-date {
+    font-style: italic;
+    color: #aaa;
+}
+.close-planet-modal {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* ---------- LÍNEA DE TIEMPO ---------- */
+.timeline-section {
+    padding-bottom: 0.5rem;
+}
+.timeline {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    padding: 1rem 0 2rem;
+    /* barra de scroll personalizada */
+    scrollbar-width: thin;
+    scrollbar-color: var(--light-blue) #333;
+}
+.timeline::-webkit-scrollbar {
+    height: 8px;
+}
+.timeline::-webkit-scrollbar-track {
+    background: #222;
+}
+.timeline::-webkit-scrollbar-thumb {
+    background: var(--light-blue);
+    border-radius: 4px;
+}
+
+.timeline-item {
+    min-width: 250px;
+    max-width: 280px;
+    scroll-snap-align: start;
+    background: linear-gradient(135deg, #1e1e2f, #12121f);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid #333;
+    transition: transform 0.3s, border-color 0.3s;
+    flex-shrink: 0;
+}
+.timeline-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--light-blue);
+}
+.timeline-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+.timeline-date {
+    font-size: 0.9rem;
+    color: var(--light-blue);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+.timeline-text {
+    font-family: var(--font-script);
+    font-size: 1.3rem;
+    color: #fff;
+    line-height: 1.4;
+}
+
+/* ---------- MURO DE NOTAS ---------- */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    perspective: 1000px;
+}
+.note-card {
+    height: 180px;
+    cursor: pointer;
+}
+.note-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+.note-card.flipped .note-inner {
+    transform: rotateY(180deg);
+}
+.note-front, .note-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    font-family: var(--font-script);
+    font-size: 1.2rem;
+    color: white;
+}
+.note-front {
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    border: 1px solid var(--light-blue);
+    box-shadow: 0 0 10px rgba(0,191,255,0.2);
+}
+.note-back {
+    background: #fff;
+    color: #222;
+    transform: rotateY(180deg);
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    font-family: var(--font-script);
+    font-size: 1rem;
+    overflow-y: auto;
+    line-height: 1.5;
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 600px) {
     h1 { font-size: 2.8rem; }
@@ -505,5 +750,15 @@ footer {
         border-left: 130px solid transparent;
         border-right: 130px solid transparent;
         border-bottom: 80px solid #1a1a2e;
+    }
+    .solar-system {
+        width: 300px;
+        height: 300px;
+    }
+    .planet {
+        width: 45px;
+        height: 45px;
+        margin: -22px 0 0 -22px;
+        font-size: 1.2rem;
     }
 }

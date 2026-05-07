@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <!-- Canvas para la nieve (se inicializa con JS) -->
+    <!-- Canvas para la nieve -->
     <canvas id="snow-canvas"></canvas>
 
     <!-- PANTALLA DE CARGA -->
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <!-- CONTENIDO PRINCIPAL (oculto inicialmente) -->
+    <!-- CONTENIDO PRINCIPAL -->
     <main id="main-content" class="hidden">
 
         <!-- ENCABEZADO -->
@@ -73,7 +73,6 @@
         <!-- SPOTIFY -->
         <section class="section spotify-section">
             <h2>Nuestra Playlist</h2>
-            <!-- ⚠️ REEMPLAZA LA URL CON EL ENLACE DE TU PLAYLIST DE SPOTIFY -->
             <a href="https://open.spotify.com/playlist/2UbHBAHh0IAMtlYSVii525?si=G8q5yg8iSlGz-0yiYq2jHA&pt=6c3838a7ae533d14344b2aa578cab497" target="_blank" class="spotify-btn">
                 <svg class="spotify-svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                     <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
@@ -93,7 +92,6 @@
                         <div class="heart-seal">❤️</div>
                     </div>
                     <div class="letter-content" id="letter-paper">
-                        <!-- ⚠️ PUEDES CAMBIAR TODO EL CONTENIDO DE LA CARTA -->
                         <p class="letter-title">💌 Wendi,</p>
                         <p>
                             Eres la melodía más bonita de mi vida. Cada día a tu lado es un regalo que atesoro con todo mi corazón. Gracias por ser mi compañera, mi cómplice, mi todo. Honro el instante en que unimos nuestros caminos.
@@ -109,7 +107,7 @@
         <section class="section quiz-section">
             <h2>¿Qué tanto me conoces? 💭</h2>
             <div class="quiz-rules">
-                <p>📋 <strong>Reglas:</strong> Responde las 6 primeras preguntas con sinceridad, todas las respuestas las debes escribir en minisculas mi amor, nada de mayusculas. La última es libre, solo para que me cuentes algo bonito. Al final verás tu puntuación.</p>
+                <p>📋 <strong>Reglas:</strong> Responde las 6 primeras preguntas con sinceridad, todas las respuestas las debes escribir en minúsculas mi amor, nada de mayúsculas. La última es libre, solo para que me cuentes algo bonito. Al final verás tu puntuación.</p>
             </div>
             <div class="quiz-container">
                 <form id="quiz-form">
@@ -119,7 +117,7 @@
                     </div>
                     <div class="question">
                         <label>2. Primera película que vimos juntos:</label>
-                        <input type="text" id="q2" placeholder="Ej: Una de la trilogia distopica" required>
+                        <input type="text" id="q2" placeholder="Ej: Una de la trilogía distópica" required>
                     </div>
                     <div class="question">
                         <label>3. ¿Cuál fue nuestra primera salida?</label>
@@ -139,11 +137,10 @@
                     </div>
                     <div class="question">
                         <label>5. ¿Dónde fue nuestro primer beso?</label>
-                        <input type="text" id="q5" placeholder="Ej: Es un lugar que tu conoces muy bien" required>
+                        <input type="text" id="q5" placeholder="Ej: Es un lugar que tú conoces muy bien" required>
                     </div>
                     <div class="question">
                         <label>6. Fecha en que nos hicimos novios:</label>
-                        <!-- Con type="date" se mostrará un selector de calendario -->
                         <input type="date" id="q6" required>
                     </div>
                     <div class="question">
@@ -153,6 +150,46 @@
                     <button type="submit" class="quiz-btn">Ver mi puntuación 💘</button>
                 </form>
                 <div class="result" id="quiz-result"></div>
+            </div>
+        </section>
+
+        <!-- ===== NUEVA SECCIÓN: SISTEMA SOLAR DE MOMENTOS ===== -->
+        <section class="section solar-system-section">
+            <h2>Nuestro Universo</h2>
+            <p class="solar-instruction">Haz clic en cada planeta para ver el recuerdo</p>
+            <div class="solar-system" id="solar-system">
+                <!-- El sol central -->
+                <div class="sun">
+                    <span class="sun-icon">☀️</span>
+                </div>
+                <!-- Planetas (los llenaremos con JS para más control) -->
+                <!-- Pero puedes definirlos manualmente; aquí los creamos desde JS -->
+            </div>
+            <!-- Modal del planeta -->
+            <div class="planet-modal" id="planet-modal">
+                <div class="planet-modal-content">
+                    <span class="close-planet-modal">&times;</span>
+                    <img id="planet-modal-img" src="" alt="Recuerdo">
+                    <h3 id="planet-modal-title"></h3>
+                    <p id="planet-modal-desc"></p>
+                    <p class="planet-modal-date" id="planet-modal-date"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== NUEVA SECCIÓN: LÍNEA DE TIEMPO ===== -->
+        <section class="section timeline-section">
+            <h2>Nuestra Línea de Tiempo</h2>
+            <div class="timeline" id="timeline">
+                <!-- Los hitos se inyectan con JS para mayor facilidad -->
+            </div>
+        </section>
+
+        <!-- ===== NUEVA SECCIÓN: MURO DE NOTAS ===== -->
+        <section class="section notes-section">
+            <h2>Razones por las que te amo</h2>
+            <div class="notes-grid" id="notes-grid">
+                <!-- Cada nota se genera con JS -->
             </div>
         </section>
 
