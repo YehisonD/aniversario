@@ -12,10 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 mainContent.classList.remove('hidden');
                 initSnow();
                 startCounter();
-                // Inicializar nuevas secciones
-                buildSolarSystem();
-                buildTimeline();
-                buildNotes();
+                startCountdown();
+                initCartas();
+                initCajaFuerte();
             }, 1000);
         }, 3000);
     });
@@ -76,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---------- CONTADOR DE TIEMPO ----------
+    // ---------- CONTADOR DE TIEMPO JUNTOS ----------
     function startCounter() {
         const anniversary = new Date('2025-05-08T00:00:00');
         const counterText = document.getElementById('counter-text');
@@ -214,114 +213,98 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDiv.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // ========== NUEVAS FUNCIONES ==========
+    // ========== NUEVAS SECCIONES ==========
 
-    // ---------- SISTEMA SOLAR ----------
-    function buildSolarSystem() {
-        // Datos de los "planetas" (personaliza con tus momentos)
-        const planets = [
-            { name: 'Primer mensaje', date: '15-03-2025', img: 'img/foto1.jpeg', desc: 'Ese día nos escribimos por primera vez...', angle: 0, distance: 130 },
-            { name: 'Primera cita', date: '01-04-2025', img: 'img/foto2.jpeg', desc: 'Nuestra primera salida al cine.', angle: 72, distance: 160 },
-            { name: 'Primer beso', date: '20-04-2025', img: 'img/foto3.jpeg', desc: 'En mi casa, jamás lo olvidaré.', angle: 144, distance: 140 },
-            { name: 'Novios', date: '08-05-2025', img: 'img/foto4.jpeg', desc: 'El día que el universo nos unió.', angle: 216, distance: 170 },
-            { name: 'Nuestra hija Isha', date: '...', img: 'img/foto6.jpeg', desc: 'Cuando supimos que seríamos papás.', angle: 288, distance: 150 }
-        ];
+    // ---------- CONTADOR REGRESIVO ----------
+    function startCountdown() {
+        function updateCountdown() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            let nextAnniversary = new Date(currentYear, 4, 8); // 8 de mayo (mes empieza en 0)
 
-        const solarSystem = document.getElementById('solar-system');
-        // Añadir órbitas
-        planets.forEach(p => {
-            const orbit = document.createElement('div');
-            orbit.className = 'orbit';
-            orbit.style.width = (p.distance * 2) + 'px';
-            orbit.style.height = (p.distance * 2) + 'px';
-            solarSystem.appendChild(orbit);
-        });
+            if (now > nextAnniversary) {
+                nextAnniversary = new Date(currentYear + 1, 4, 8);
+            }
 
-        // Añadir planetas
-        planets.forEach(p => {
-            const planet = document.createElement('div');
-            planet.className = 'planet';
-            planet.innerHTML = '<span>' + p.name.charAt(0) + '</span>'; // inicial
-            planet.setAttribute('data-name', p.name);
-            planet.setAttribute('data-date', p.date);
-            planet.setAttribute('data-img', p.img);
-            planet.setAttribute('data-desc', p.desc);
-            // Posición mediante transform en el sistema rotatorio
-            planet.style.transform = `rotate(${p.angle}deg) translateX(${p.distance}px) rotate(-${p.angle}deg)`;
-            solarSystem.appendChild(planet);
+            const diff = nextAnniversary - now;
 
-            // Click → mostrar modal
-            planet.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const modal = document.getElementById('planet-modal');
-                document.getElementById('planet-modal-img').src = p.img;
-                document.getElementById('planet-modal-title').textContent = p.name;
-                document.getElementById('planet-modal-desc').textContent = p.desc;
-                document.getElementById('planet-modal-date').textContent = p.date;
-                modal.classList.add('active');
-            });
-        });
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        // Cerrar modal del planeta
-        document.querySelector('.close-planet-modal').addEventListener('click', () => {
-            document.getElementById('planet-modal').classList.remove('active');
-        });
-        document.getElementById('planet-modal').addEventListener('click', function(e) {
-            if (e.target === this) this.classList.remove('active');
-        });
+            document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     }
 
-    // ---------- LÍNEA DE TIEMPO ----------
-    function buildTimeline() {
-        const timeline = document.getElementById('timeline');
-        // Datos de hitos (personaliza con tus fotos y fechas)
-        const hitos = [
-            { date: '15 marzo 2025', text: 'Primer mensaje', img: 'img/foto1.jpeg' },
-            { date: '1 abril 2025', text: 'Primera cita', img: 'img/foto2.jpeg' },
-            { date: '20 abril 2025', text: 'Nuestro primer beso', img: 'img/foto3.jpeg' },
-            { date: '8 mayo 2025', text: '¡Nos hicimos novios!', img: 'img/foto4.jpeg' },
-            { date: '...', text: 'Llegó Isha', img: 'img/foto6.jpeg' },
-            { date: 'Hoy', text: 'Eternamente juntos', img: 'img/foto7.jpeg' }
+    // ---------- GENERADOR DE CARTAS ----------
+    function initCartas() {
+        const mensajes = [
+            "Eres el motivo por el que sonrío cada mañana.",
+            "Contigo aprendí que el amor verdadero existe.",
+            "Tu risa es mi melodía favorita.",
+            "Gracias por ser mi compañera en esta aventura.",
+            "A tu lado, los días grises se vuelven de colores.",
+            "Nunca imaginé que podría amar tanto a alguien.",
+            "Eres mi lugar seguro, mi hogar.",
+            "Cada día te elijo, y siempre lo haré.",
+            "Eres la mejor mamá que Isha podría tener.",
+            "No hay distancia ni tiempo que apague lo que siento por ti."
         ];
 
-        hitos.forEach(h => {
-            const item = document.createElement('div');
-            item.className = 'timeline-item';
-            item.innerHTML = `
-                <img src="${h.img}" alt="${h.text}">
-                <p class="timeline-date">${h.date}</p>
-                <p class="timeline-text">${h.text}</p>
-            `;
-            timeline.appendChild(item);
+        const btn = document.getElementById('generate-card-btn');
+        const msgP = document.getElementById('generator-message');
+
+        btn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * mensajes.length);
+            msgP.textContent = mensajes[randomIndex];
         });
+
+        // Mostrar un primer mensaje al cargar la página
+        msgP.textContent = mensajes[Math.floor(Math.random() * mensajes.length)];
     }
 
-    // ---------- MURO DE NOTAS ----------
-    function buildNotes() {
-        const grid = document.getElementById('notes-grid');
-        // Frases cortas (frente) y textos largos (reverso)
-        const razones = [
-            { front: 'Tu sonrisa', back: 'Ilumina hasta los días más oscuros.' },
-            { front: 'Tus abrazos', back: 'Son el lugar donde quiero quedarme para siempre.' },
-            { front: 'Tu fortaleza', back: 'Admiro cómo enfrentas todo con valentía.' },
-            { front: 'Tu ternura', back: 'Con cada gesto me demuestras tu amor.' },
-            { front: 'Ser mamá de Isha', back: 'Verte con nuestra hija es el regalo más grande.' },
-            { front: 'Nuestras risas', back: 'No hay mejor sonido que nuestras carcajadas juntos.' }
-        ];
+    // ---------- CAJA FUERTE EMOCIONAL ----------
+    function initCajaFuerte() {
+        const display = document.getElementById('safe-display');
+        const messageDiv = document.getElementById('safe-message');
+        const safeText = document.getElementById('safe-text');
+        const claveCorrecta = '08052025'; // DDMMAAAA de su aniversario
+        let inputActual = '';
 
-        razones.forEach(r => {
-            const card = document.createElement('div');
-            card.className = 'note-card';
-            card.innerHTML = `
-                <div class="note-inner">
-                    <div class="note-front">${r.front}</div>
-                    <div class="note-back">${r.back}</div>
-                </div>
-            `;
-            card.addEventListener('click', () => {
-                card.classList.toggle('flipped');
+        const keys = document.querySelectorAll('.safe-key');
+        keys.forEach(key => {
+            key.addEventListener('click', () => {
+                const value = key.getAttribute('data-value');
+
+                if (value === 'clear') {
+                    inputActual = inputActual.slice(0, -1);
+                } else if (value === 'enter') {
+                    if (inputActual === claveCorrecta) {
+                        safeText.textContent = '💖 ¡Felicidades! Has abierto mi corazón. Eres la contraseña perfecta de mi vida. ¡Te amo!';
+                        messageDiv.classList.add('show');
+                        display.style.borderColor = 'var(--success)';
+                    } else {
+                        safeText.textContent = '❌ Código incorrecto. Pista: es una fecha muy especial para nosotros...';
+                        messageDiv.classList.add('show');
+                        display.style.borderColor = 'var(--danger)';
+                        inputActual = '';
+                    }
+                } else {
+                    if (inputActual.length < 8) {
+                        inputActual += value;
+                    }
+                }
+
+                display.textContent = inputActual || '--------';
+                display.style.borderColor = '#333';
             });
-            grid.appendChild(card);
         });
     }
 
