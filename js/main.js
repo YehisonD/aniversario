@@ -75,41 +75,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---------- CONTADOR DE TIEMPO JUNTOS ----------
+    // ---------- CONTADOR DE TIEMPO JUNTOS (CORREGIDO) ----------
     function startCounter() {
-        const anniversary = new Date('2025-05-07T00:00:00');
+        const anniversary = new Date('2025-05-08T00:00:00');
         const counterText = document.getElementById('counter-text');
 
         function updateCounter() {
             const now = new Date();
-            let diff = now - anniversary;
 
-            if (diff < 0) {
+            if (now < anniversary) {
                 counterText.innerHTML = '¡El gran día aún no llega!';
                 return;
             }
 
-            let seconds = Math.floor(diff / 1000);
-            let minutes = Math.floor(seconds / 60);
-            let hours = Math.floor(minutes / 60);
-            let days = Math.floor(hours / 24);
+            let years = now.getFullYear() - anniversary.getFullYear();
+            let months = now.getMonth() - anniversary.getMonth();
+            let days = now.getDate() - anniversary.getDate();
+            let hours = now.getHours() - anniversary.getHours();
+            let minutes = now.getMinutes() - anniversary.getMinutes();
+            let seconds = now.getSeconds() - anniversary.getSeconds();
 
-            const monthsTotal = Math.floor(days / 30.4375);
-            const years = Math.floor(monthsTotal / 12);
-            const months = monthsTotal % 12;
-
-            const daysInYears = years * 365.25;
-            const daysInMonths = months * 30.4375;
-            const remainingDays = Math.floor(days - daysInYears - daysInMonths);
-
-            hours = hours % 24;
-            minutes = minutes % 60;
-            seconds = seconds % 60;
+            if (seconds < 0) {
+                seconds += 60;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes += 60;
+                hours--;
+            }
+            if (hours < 0) {
+                hours += 24;
+                days--;
+            }
+            if (days < 0) {
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+                months--;
+            }
+            if (months < 0) {
+                months += 12;
+                years--;
+            }
 
             counterText.innerHTML = `
                 ${years} año${years !== 1 ? 's' : ''}, 
                 ${months} mes${months !== 1 ? 'es' : ''}, 
-                ${remainingDays} día${remainingDays !== 1 ? 's' : ''}, 
+                ${days} día${days !== 1 ? 's' : ''}, 
                 ${hours} hora${hours !== 1 ? 's' : ''}, 
                 ${minutes} minuto${minutes !== 1 ? 's' : ''}, 
                 ${seconds} segundo${seconds !== 1 ? 's' : ''}
@@ -220,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function updateCountdown() {
             const now = new Date();
             const currentYear = now.getFullYear();
-            let nextAnniversary = new Date(currentYear, 4, 8); // 8 de mayo (mes empieza en 0)
+            let nextAnniversary = new Date(currentYear, 4, 8); // 8 de mayo (mes 4)
 
             if (now > nextAnniversary) {
                 nextAnniversary = new Date(currentYear + 1, 4, 8);
@@ -243,60 +254,60 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateCountdown, 1000);
     }
 
-    // ---------- GENERADOR DE CARTAS ----------
+    // ---------- GENERADOR DE CARTAS (50 FRASES) ----------
     function initCartas() {
         const mensajes = [
-    "Eres el motivo por el que sonrío cada mañana.",
-    "Contigo aprendí que el amor verdadero existe.",
-    "Tu risa es mi melodía favorita.",
-    "Gracias por ser mi compañera en esta aventura.",
-    "A tu lado, los días grises se vuelven de colores.",
-    "Nunca imaginé que podría amar tanto a alguien.",
-    "Eres mi lugar seguro, mi hogar.",
-    "Cada día te elijo, y siempre lo haré.",
-    "Eres la mejor mamá que Isha podría tener.",
-    "No hay distancia ni tiempo que apague lo que siento por ti.",
-    "Tus abrazos son mi refugio favorito.",
-    "Eres la primera y última persona en la que pienso cada día.",
-    "Si fueras un código, serías mi función favorita.",
-    "Eres el bug que quiero en mi vida para siempre.",
-    "A tu lado, hasta compilar se siente poético.",
-    "Nuestro amor no necesita debug, es perfecto.",
-    "Me gustas más que el día que nos conocimos.",
-    "Eres el sueño que nunca quiero despertar.",
-    "En tu mirada encuentro la paz que necesito.",
-    "Gracias por hacer de lo ordinario algo extraordinario.",
-    "El universo conspiró para que nos encontráramos.",
-    "Eres mi persona favorita en este planeta.",
-    "Cada segundo a tu lado vale más que mil horas sin ti.",
-    "Si pudiera volver atrás, te elegiría otra vez.",
-    "Tu amor me hace invencible.",
-    "No necesito estrellas, porque tú brillas por todas.",
-    "Eres el verso que le da sentido a mi poema.",
-    "Nuestro amor es como un while(true), infinito.",
-    "Eres el CSS de mi HTML, le das estilo a mi vida.",
-    "Sin ti, mi vida sería un error 404.",
-    "Eres mi variable más valiosa.",
-    "Tú y yo somos un loop perfecto.",
-    "Nuestro amor es open source, crece cada día.",
-    "Eres el mejor commit de mi historia.",
-    "No hay firewall que detenga lo que siento por ti.",
-    "Eres la constante en mi ecuación de la felicidad.",
-    "A tu lado, cada segundo es un milagro.",
-    "Eres la melodía que calma mi alma.",
-    "Nada me hace más feliz que verte sonreír.",
-    "Eres el mayor regalo que me ha dado la vida.",
-    "Tu amor es mi combustible diario.",
-    "Gracias por aceptar mis rarezas de programador.",
-    "Eres la solución a todos mis problemas.",
-    "Nuestro amor tiene la mejor documentación: el corazón.",
-    "Eres la librería que siempre quiero importar.",
-    "Si la vida fuera un programa, tú serías el output perfecto.",
-    "Nada se compara con la suerte de tenerte.",
-    "Eres la razón por la que creo en el destino.",
-    "Tu amor es mi sistema operativo favorito.",
-    "Prometo amarte en cada versión de nosotros."
-];
+            "Eres el motivo por el que sonrío cada mañana.",
+            "Contigo aprendí que el amor verdadero existe.",
+            "Tu risa es mi melodía favorita.",
+            "Gracias por ser mi compañera en esta aventura.",
+            "A tu lado, los días grises se vuelven de colores.",
+            "Nunca imaginé que podría amar tanto a alguien.",
+            "Eres mi lugar seguro, mi hogar.",
+            "Cada día te elijo, y siempre lo haré.",
+            "Eres la mejor mamá que Isha podría tener.",
+            "No hay distancia ni tiempo que apague lo que siento por ti.",
+            "Tus abrazos son mi refugio favorito.",
+            "Eres la primera y última persona en la que pienso cada día.",
+            "Si fueras un código, serías mi función favorita.",
+            "Eres el bug que quiero en mi vida para siempre.",
+            "A tu lado, hasta compilar se siente poético.",
+            "Nuestro amor no necesita debug, es perfecto.",
+            "Me gustas más que el día que nos conocimos.",
+            "Eres el sueño que nunca quiero despertar.",
+            "En tu mirada encuentro la paz que necesito.",
+            "Gracias por hacer de lo ordinario algo extraordinario.",
+            "El universo conspiró para que nos encontráramos.",
+            "Eres mi persona favorita en este planeta.",
+            "Cada segundo a tu lado vale más que mil horas sin ti.",
+            "Si pudiera volver atrás, te elegiría otra vez.",
+            "Tu amor me hace invencible.",
+            "No necesito estrellas, porque tú brillas por todas.",
+            "Eres el verso que le da sentido a mi poema.",
+            "Nuestro amor es como un while(true), infinito.",
+            "Eres el CSS de mi HTML, le das estilo a mi vida.",
+            "Sin ti, mi vida sería un error 404.",
+            "Eres mi variable más valiosa.",
+            "Tú y yo somos un loop perfecto.",
+            "Nuestro amor es open source, crece cada día.",
+            "Eres el mejor commit de mi historia.",
+            "No hay firewall que detenga lo que siento por ti.",
+            "Eres la constante en mi ecuación de la felicidad.",
+            "A tu lado, cada segundo es un milagro.",
+            "Eres la melodía que calma mi alma.",
+            "Nada me hace más feliz que verte sonreír.",
+            "Eres el mayor regalo que me ha dado la vida.",
+            "Tu amor es mi combustible diario.",
+            "Gracias por aceptar mis rarezas de programador.",
+            "Eres la solución a todos mis problemas.",
+            "Nuestro amor tiene la mejor documentación: el corazón.",
+            "Eres la librería que siempre quiero importar.",
+            "Si la vida fuera un programa, tú serías el output perfecto.",
+            "Nada se compara con la suerte de tenerte.",
+            "Eres la razón por la que creo en el destino.",
+            "Tu amor es mi sistema operativo favorito.",
+            "Prometo amarte en cada versión de nosotros."
+        ];
 
         const btn = document.getElementById('generate-card-btn');
         const msgP = document.getElementById('generator-message');
@@ -306,7 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
             msgP.textContent = mensajes[randomIndex];
         });
 
-        // Mostrar un primer mensaje al cargar la página
         msgP.textContent = mensajes[Math.floor(Math.random() * mensajes.length)];
     }
 
@@ -315,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const display = document.getElementById('safe-display');
         const messageDiv = document.getElementById('safe-message');
         const safeText = document.getElementById('safe-text');
-        const claveCorrecta = '08052025'; // DDMMAAAA de su aniversario
+        const claveCorrecta = '08052025'; // DDMMAAAA
         let inputActual = '';
 
         const keys = document.querySelectorAll('.safe-key');
