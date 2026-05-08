@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---------- CONTADOR DE TIEMPO JUNTOS ----------
     function startCounter() {
-        const anniversary = new Date('2025-05-09T00:00:00');
+        const anniversary = new Date('2025-05-07T00:00:00');
         const counterText = document.getElementById('counter-text');
 
         function updateCounter() {
